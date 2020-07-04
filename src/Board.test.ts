@@ -32,3 +32,24 @@ test("decisive position detection", () => {
   expect(evenBoard.isDecisive()).toBe(null)
   expect(decisiveBoard.isDecisive()).toBe("X")
 })
+
+test("get empty squares", () => {
+  let board = new Board(4)
+  board.setCell("X", { startPoint: 0, endPoint: 1 })
+  board.setCell("X", { startPoint: 0, endPoint: 2 })
+  board.setCell("X", { startPoint: 0, endPoint: 3 })
+  expect(board.getEmptyCells()).toEqual([
+    {
+      startPoint: 1,
+      endPoint: 2,
+    },
+    {
+      startPoint: 1,
+      endPoint: 3,
+    },
+    {
+      startPoint: 2,
+      endPoint: 3,
+    },
+  ])
+})

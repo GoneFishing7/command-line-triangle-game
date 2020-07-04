@@ -69,7 +69,7 @@ export default class Board {
    * @returns The winner, else null
    * @memberof Board
    */
-  isDecisive(): undefined | null | string {
+  isDecisive(): Cell {
     // The points in the triangle will always be
     // in numeric order, to avoid overcounting
 
@@ -113,9 +113,21 @@ export default class Board {
     return null
   }
 
-  // getEmptyCells(): PositionInterface[] {
-
-  // }
+  getEmptyCells(): PositionInterface[] {
+    let emptyCells: PositionInterface[] = []
+    for (let startPoint = 0; startPoint < this.cells.length - 1; startPoint++) {
+      for (
+        let endPoint = startPoint + 1;
+        endPoint < this.cells[startPoint].length;
+        endPoint++
+      ) {
+        if (!this.getCell({ startPoint, endPoint })) {
+          emptyCells.push({ startPoint, endPoint })
+        }
+      }
+    }
+    return emptyCells
+  }
 
   /**
    * The board, represented as a string
