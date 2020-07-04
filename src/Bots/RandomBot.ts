@@ -1,14 +1,11 @@
 import BotInterface from "./BotInterface"
 import Board from "../Board"
+import { getRandomElementFromArray } from "../Utils"
 
-class RandomBot implements BotInterface {
+export default class RandomBot implements BotInterface {
   getMove = (board: Board) => {
-    // TODO: Implement
-    throw "not implemented"
-    return {
-      startPoint: 1,
-      endPoint: 1,
-    }
+    let possibleMoves = board.getEmptyCells()
+    return getRandomElementFromArray(possibleMoves)
   }
-  getEval = () => 0
+  getEval = () => Math.floor(Math.random() * 3 - 1)
 }

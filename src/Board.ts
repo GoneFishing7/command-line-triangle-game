@@ -132,7 +132,7 @@ export default class Board {
   /**
    * The board, represented as a string
    *
-   * @returns The board to string (that's what toString means 🤣)
+   * @returns The board to string (that's what toString means ;) )
    * @memberof Board
    */
   toString(): string {

@@ -1,11 +1,7 @@
 import Board from "../Board"
+import { PositionInterface } from "../PointInterface"
 
 export default interface BotInterface {
-  getMove: (
-    board: Board
-  ) => {
-    startPoint: number | null | undefined
-    endPoint: number | null | undefined
-  }
+  getMove: (board: Board) => PositionInterface
   getEval: (board: Board) => number
 }
