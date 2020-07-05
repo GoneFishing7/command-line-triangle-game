@@ -13,6 +13,9 @@ Builds the code in the `src/` directory using the TypeScript compiler and Babel.
 ### `npm run start`
 Runs the code from the `build/` directory. Equivalent to `node build/`.
 
+### `npm run buildAndStart`
+Equivalent to `npm run build && npm run start`
+
 ### `npm run test`
 Tests the code in the `build/` directory using Jest. Equivalent to `jest`.
 
