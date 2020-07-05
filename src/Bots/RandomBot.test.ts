@@ -4,8 +4,8 @@ import RandomBot from "./RandomBot"
 test("bot eval", () => {
   let board = new Board(6)
   let randomBot = new RandomBot()
-  // get 100 evals
-  let evals = new Array(100).fill(null).map(() => randomBot.getEval())
+  // get 1000 evals
+  let evals = new Array(1000).fill(null).map(() => randomBot.getEval())
   // Make sure they're in the right range
   expect(evals.every((n) => n > -2 && n < 2)).toBe(true)
 })
@@ -17,8 +17,8 @@ test("bot moving", () => {
     endPoint: 2,
   })
   let randomBot = new RandomBot()
-  // get 100 moves
-  let moves = new Array(100).fill(null).map(() => randomBot.getMove(board))
+  // get 1000 moves
+  let moves = new Array(1000).fill(null).map(() => randomBot.getMove(board))
   // Make sure they're possible
   expect(moves.every((move) => board.getCell(move) === null)).toBe(true)
 })
