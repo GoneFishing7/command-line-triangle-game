@@ -1,7 +1,12 @@
+// Player is P
+// Computer is C
+
 import Board from "./Board"
 import { PositionInterface } from "./PointInterface"
 
 import Enquirer from "enquirer"
+import RandomBot from "./Bots/RandomBot"
+import { pointToString } from "./Utils"
 
 interface Options {
   isPlayerMovingFirst: boolean
@@ -32,19 +37,31 @@ export default class Game {
     })
   }
   async runWithOptions(options: Options) {
-    console.log(options)
+    let bot = new RandomBot()
     let isPlayersTurn = options.isPlayerMovingFirst
     let i = 0
     while (
-      // this.board.getEmptyCells().length !== 0 &&
-      // !this.board.isDecisive()
-      i < 10
+      this.board.getEmptyCells().length !== 0 &&
+      !this.board.isDecisive()
     ) {
       if (isPlayersTurn) {
         let playersMove = await this.getPlayerMove()
+        this.board.setCell("P", playersMove)
+        console.log(`Your move: ${pointToString(playersMove)}`)
+        isPlayersTurn = !isPlayersTurn
+      } else {
+        let computersMove = bot.getMove(this.board)
+        console.log(`Computer's move: ${pointToString(computersMove)}`)
+        this.board.setCell("C", computersMove)
+        isPlayersTurn = !isPlayersTurn
       }
-      console.log("finished loop")
-      i++
+    }
+    if (this.board.isDecisive()) {
+      console.log(
+        `${this.board.isDecisive() === "C" ? "Player" : "Computer"} wins!`
+      )
+    } else {
+      console.log("It's a tie... is this even possible?!?!?")
     }
   }
   async getPlayerMove(): Promise<PositionInterface> {
@@ -64,9 +81,10 @@ export default class Game {
     ]
     let move: PositionInterface
     do {
-      console.log("Did the thing")
       move = await Enquirer.prompt(cellPrompt)
-      console.log(this.board.getCell(move))
+      // Adjust so input that it is 0-based, not 1-based
+      move.startPoint -= 1
+      move.endPoint -= 1
     } while (this.board.getCell(move) !== null)
     return move
   }

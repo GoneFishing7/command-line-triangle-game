@@ -66,7 +66,7 @@ export default class Board {
    * Check if the board is winning for any truthy value.
    * Not tested yet, hasn't experienced the hardships of life.
    *
-   * @returns The winner, else null
+   * @returns The loser, else null
    * @memberof Board
    */
   isDecisive(): Cell {
