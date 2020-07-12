@@ -7,14 +7,16 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "Debug Build",
+            "name": "Debug",
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "program": "${workspaceFolder}/build/index.js",
+            "program": "${workspaceFolder}/src/index.ts",
+            "preLaunchTask": "npm: build",
             "outFiles": [
                 "${workspaceFolder}/**/*.js"
-            ]
+            ],
+            "console": "integratedTerminal"
         }
     ]
 }
