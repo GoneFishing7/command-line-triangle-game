@@ -6,7 +6,7 @@ import { PositionInterface } from "./PointInterface"
 
 import Enquirer from "enquirer"
 import RandomBot from "./Bots/RandomBot"
-import { pointToString } from "./Utils"
+import { cellToString } from "./Utils"
 
 interface Options {
   isPlayerMovingFirst: boolean
@@ -47,11 +47,11 @@ export default class Game {
       if (isPlayersTurn) {
         let playersMove = await this.getPlayerMove()
         this.board.setCell("P", playersMove)
-        console.log(`Your move: ${pointToString(playersMove)}`)
+        console.log(`Your move: ${cellToString(playersMove)}`)
         isPlayersTurn = !isPlayersTurn
       } else {
         let computersMove = bot.getMove(this.board)
-        console.log(`Computer's move: ${pointToString(computersMove)}`)
+        console.log(`Computer's move: ${cellToString(computersMove)}`)
         this.board.setCell("C", computersMove)
         isPlayersTurn = !isPlayersTurn
       }

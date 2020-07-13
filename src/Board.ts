@@ -113,14 +113,23 @@ export default class Board {
     return null
   }
 
+  /**
+   * Get all the empty cells
+   *
+   * @returns An array of positions where the empty cells are
+   * @memberof Board
+   */
   getEmptyCells(): PositionInterface[] {
+    // Create a new array
     let emptyCells: PositionInterface[] = []
+    // Go through each combination
     for (let startPoint = 0; startPoint < this.cells.length - 1; startPoint++) {
       for (
         let endPoint = startPoint + 1;
         endPoint < this.cells[startPoint].length;
         endPoint++
       ) {
+        // If the cell is empty, take note
         if (!this.getCell({ startPoint, endPoint })) {
           emptyCells.push({ startPoint, endPoint })
         }
@@ -137,23 +146,26 @@ export default class Board {
    */
   toString(): string {
     let horizontalLine = new String("-").repeat(this.cells[0].length * 4 + 1)
-    // let horizontalLine = "";
+    // Start with a top line
     let returnString = horizontalLine
     for (let i = 0; i < this.cells.length; i++) {
-      // console.log(`Row: ${this.cells[i]}`);
+      // Newline and add the leftmost bar
       returnString += "\n|"
       for (let j = 0; j < this.cells[i].length; j++) {
-        // console.log(`Cell: ${this.cells[i][j]}`);
+        // Make a symbol that formats nicely
         const symbol =
           this.cells[i][j] === undefined
             ? "n"
             : this.cells[i][j]
             ? this.cells[i][j]
             : " "
+        // Add the symbol with a bar on the right
         returnString += " " + symbol + " |"
       }
+      // Add a newline and keep going
       returnString += "\n" + horizontalLine
     }
+    // Finally, return
     return returnString
   }
 }
