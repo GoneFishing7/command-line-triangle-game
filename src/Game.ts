@@ -7,9 +7,11 @@ import { PositionInterface } from "./PointInterface"
 import Enquirer from "enquirer"
 import RandomBot from "./Bots/RandomBot"
 import { cellToString } from "./Utils"
+import BasicBot from "./Bots/BasicBot"
 
 interface Options {
   isPlayerMovingFirst: boolean
+  botMode: string
 }
 
 export default class Game {
@@ -30,6 +32,12 @@ export default class Game {
         disabled: "No",
         initial: "Yes",
       },
+      {
+        type: "select",
+        name: "botMode",
+        message: "Bot mode",
+        choices: ["Easy", "Hard"],
+      },
     ]
     // @ts-ignore
     Enquirer.prompt(optionsPrompt).then((options: Options) => {
@@ -37,28 +45,25 @@ export default class Game {
     })
   }
   async runWithOptions(options: Options) {
-    let bot = new RandomBot()
+    let bot = options.botMode === "Hard" ? new BasicBot() : new RandomBot()
+    console.log(bot.name)
     let isPlayersTurn = options.isPlayerMovingFirst
-    let i = 0
-    while (
-      this.board.getEmptyCells().length !== 0 &&
-      !this.board.isDecisive()
-    ) {
+    while (this.board.getEmptyCells().length !== 0 && !this.board.getLoser()) {
       if (isPlayersTurn) {
         let playersMove = await this.getPlayerMove()
         this.board.setCell("P", playersMove)
         console.log(`Your move: ${cellToString(playersMove)}`)
         isPlayersTurn = !isPlayersTurn
       } else {
-        let computersMove = bot.getMove(this.board)
+        let computersMove = bot.getMove(this.board, "C")
         console.log(`Computer's move: ${cellToString(computersMove)}`)
         this.board.setCell("C", computersMove)
         isPlayersTurn = !isPlayersTurn
       }
     }
-    if (this.board.isDecisive()) {
+    if (this.board.getLoser()) {
       console.log(
-        `${this.board.isDecisive() === "C" ? "Player" : "Computer"} wins!`
+        `${this.board.getLoser() === "C" ? "Player" : "Computer"} wins!`
       )
     } else {
       console.log("It's a tie... is this even possible?!?!?")

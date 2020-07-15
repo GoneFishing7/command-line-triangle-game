@@ -9,12 +9,6 @@ return the move with the best eval
 if board is losing:
   return that
 otherwise:
-  for each possible opponent move:
-    if that move is losing:
-      remember that the move is losing
-      look at the next possible one 
-    else:
-      there is a non-losing move, and tell that to the outer loop
   if computer doesn't have a non-losing move:
     remember this move is winning
   otherwise:

@@ -3,11 +3,14 @@ import Board from "../Board"
 import { getRandomElementFromArray } from "../Utils"
 
 export default class RandomBot implements BotInterface {
+  name = "Random Bot"
   getMove = (board: Board) => {
     // Get all possible moves
     let possibleMoves = board.getEmptyCells()
     // Pick a random one
     return getRandomElementFromArray(possibleMoves)
   }
-  getEval = (_board?: Board) => Math.floor(Math.random() * 3 - 1)
+  // @ts-ignore
+  getEval = (_board?: Board, _toMove?: "C" | "P") =>
+    Math.floor(Math.random() * 3 - 1)
 }

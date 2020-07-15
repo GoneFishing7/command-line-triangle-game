@@ -24,6 +24,33 @@ export default class Board {
       )
   }
 
+  static deepCopy(oldBoard: Board): Board {
+    let newBoard = new Board(oldBoard.size)
+    for (let startPoint = 0; startPoint < oldBoard.size - 1; startPoint++) {
+      for (
+        let endPoint = startPoint + 1;
+        endPoint < oldBoard.size;
+        endPoint++
+      ) {
+        newBoard.setCell(oldBoard.getCell({ startPoint, endPoint }), {
+          startPoint,
+          endPoint,
+        })
+      }
+    }
+    return newBoard
+  }
+
+  static deepCopyWithMove(
+    oldBoard: Board,
+    value: Cell,
+    { startPoint, endPoint }: PositionInterface
+  ) {
+    let toReturn = Board.deepCopy(oldBoard)
+    toReturn.setCell(value, { startPoint, endPoint })
+    return toReturn
+  }
+
   /**
    * Set the cell to a value given a starting point and an end point
    * @param value The value to set the square to.
@@ -64,12 +91,11 @@ export default class Board {
 
   /**
    * Check if the board is winning for any truthy value.
-   * Not tested yet, hasn't experienced the hardships of life.
    *
    * @returns The loser, else null
    * @memberof Board
    */
-  isDecisive(): Cell {
+  getLoser(): Cell {
     // The points in the triangle will always be
     // in numeric order, to avoid overcounting
 
@@ -167,5 +193,9 @@ export default class Board {
     }
     // Finally, return
     return returnString
+  }
+
+  get size() {
+    return this.cells.length
   }
 }

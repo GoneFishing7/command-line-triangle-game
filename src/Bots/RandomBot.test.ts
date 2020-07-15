@@ -12,7 +12,7 @@ test("bot eval", () => {
 
 test("bot moving", () => {
   let board = new Board(6)
-  board.setCell("X", {
+  board.setCell("P", {
     startPoint: 1,
     endPoint: 2,
   })

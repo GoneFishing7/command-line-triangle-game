@@ -7,6 +7,20 @@
         {
             "type": "node",
             "request": "launch",
+            "name": "Debug Tests",
+            "program": "${workspaceRoot}/node_modules/jest/bin/jest.js",
+            "args": [
+                "-i"
+            ],
+            "preLaunchTask": "npm: build",
+            "outFiles": [
+                "${workspaceRoot}/dist/**/*"
+            ],
+            "console": "integratedTerminal"
+        },
+        {
+            "type": "node",
+            "request": "launch",
             "name": "Debug",
             "skipFiles": [
                 "<node_internals>/**"
